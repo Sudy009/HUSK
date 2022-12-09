@@ -1,0 +1,174 @@
+/* 네비게이션 */
+.main-logo{
+    position: absolute;
+    z-index:1;
+    float:left;
+    width:100px;
+    height: 100px;
+    margin-top:20px;
+    margin-left: 40px;
+  }
+a{text-decoration:none; color:#000000;}         
+         a:hover{color:#ff0000;}                    
+         
+         /* nav tag */
+         nav ul{padding-top:10px;}                     /*  상단 여백 10px  */
+         nav ul li {
+            display:inline;                         /*  세로나열을 가로나열로 변경 */
+            border-left:1px solid #999;             /* 각 메뉴의 왼쪽에 "|" 표시(분류 표시) */
+   
+            padding:0 10px;                         /* 각 메뉴 간격 */
+        }
+         nav ul li:first-child{border-left:none;}   
+
+nav{
+  position: absolute;
+  z-index:1;
+  height: 50px;
+  padding: 20px;;
+  margin:0;
+  margin-left:140px;
+}
+
+nav a:link, nav a:visited{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffff;;
+  text-decoration: none;
+  text-align: center;
+}
+nav a:hover {
+  color:#bbbbbb;
+}
+  /* Window 1 */
+  #window1 {
+    background-image : url('about_backGround.jpg');
+      background-repeat : no-repeat;
+      color: #ffff;
+    background-size: cover;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+  }
+  #intro {
+    position: absolute;
+    top: 50%;
+    height: 240px;
+    margin-top: -200px;
+  }
+  #intro h1 {
+    font-family: 'Palanquin Dark', sans-serif;
+    font-weight: 600;
+    font-size: 72px;
+    text-align: center;
+  }
+  h3 {
+    font-family: "Apple SD Gothic Neo", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: rgb(172, 169, 169);
+    text-align: center;
+  }
+  /* Window2 */
+  #window2 {
+    background: #292726;
+    background: -webkit-linear-gradient(to right, #3f4242, #eeeaee, #3f3e3d);
+    background: linear-gradient(to right, #505152, #8e7f96, #d6d3d0);
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    display: flex;
+
+    
+  }
+  #window2 video{
+      margin-left: 10%;
+  }
+  #myself{
+      margin-top: 700px;
+  }
+  #myself h1 {
+    font-family: "Apple SD Gothic Neo", sans-serif;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 1.5;
+    color: #fff;
+    margin-left: 20%;
+  }
+  #myself h2 {
+    font-family: "Apple SD Gothic Neo", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #fff;
+    margin-left:20%;
+  }
+  #portfoliosite {
+    text-decoration: none;
+    color: #7319F3;
+    font-weight: 600;
+  }
+  #portfoliosite:hover {
+    color: yellow;
+  }
+  /* Window 3 */
+  #window3 {
+    background: #292726;
+    background: -webkit-linear-gradient(to right, #3f4242, #eeeaee, #3f3e3d);
+    background: linear-gradient(to right, #505152, #8e7f96, #d6d3d0);
+    color:#000000;
+  }
+  #window3 h1 {
+    padding-top: 1px;
+    font-family: 'Palanquin Dark', sans-serif;
+    font-weight: 400;
+    font-size: 70px;
+    line-height: 1.5;
+    text-align: center;
+    color: #eeeaee;
+  }
+  .container {
+    display: -webkit-flex;
+    display: flex;
+    margin-top: 50px;
+    width:100%;
+    height:100%;
+  }
+
+  .hobby {
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+
+ p{
+    font-family: 'Gothic A1', sans-serif;
+    font-weight: 600;
+    font-size:30px;
+  }
+
+  .sub_name{
+    margin-top: 30px;
+    font-family: 'Gothic A1', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .hobby_text {
+    margin-top: 30px;
+    font-family: 'Gothic A1', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+        <title>AI MASK CHECKING PROGRAM</title>
+        <link rel="stylesheet" href="index.css">
+        
+    </head>
+    <body>
+        <div class="main-background"></div>
+        <div class="main-logo">
+            <img src="images/HUSK_SMU.png" style="width:90px;
+            height: 70px;">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="intro.html" >HUSK</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+            </ul>   
+        </nav> 
+
+        <div class="main-content"></div>
+            <div class="main_text">SHOW YOUR FACE</div>
+            <button type="button" onclick="init()">Start</button>
+            <div class="label-container" id="label-container"></div>
+            
+        </div>
+        <div class="square"></div>
+        <div class="webcam-container" id="webcam-container"></div>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+        <script type="text/javascript">
+            // More API functions here:
+            // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+        
+            // the link to your model provided by Teachable Machine export panel
+            const URL = "https://teachablemachine.withgoogle.com/models/WCUO2kwJa/";
+        
+            let model, webcam, labelContainer, maxPredictions;
+            const data={
+                "마스크안씀":{
+                    "name":"마스크 안씀",
+                    "message" : "마스크를 써주세요."
+                },
+                "마스크씀":{
+                    "name":"마스크 씀",
+                    "message" : "안전합니다."
+                },
+                "코턱스크":{
+                    "name":"코스크&턱스크",
+                    "message":"마스크를 제대로 써주세요."
+                }
+            }
+            // Load the image model and setup the webcam
+            async function init() {
+                const modelURL = URL + "model.json";
+                const metadataURL = URL + "metadata.json";
+        
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+        
+                // Convenience function to setup a webcam
+                const flip = true; // whether to flip the webcam
+                webcam = new tmImage.Webcam(700, 700, flip); // width, height, flip
+                await webcam.setup(); // request access to the webcam
+                await webcam.play();
+                window.requestAnimationFrame(loop);
+        
+                // append elements to the DOM
+                document.getElementById("webcam-container").appendChild(webcam.canvas);
+                labelContainer = document.getElementById("label-container");
+                for (let i = 0; i < maxPredictions; i++) { // and class labels
+                    labelContainer.appendChild(document.createElement("div"));
+                }
+            }
+        
+            async function loop() {
+                webcam.update(); // update the webcam frame
+                await predict();
+                window.requestAnimationFrame(loop);
+            }
+            
+
+            var status="마스크 안씀"
+            var audio
+            // run the webcam image through the image model
+            async function predict() {
+                const prediction = await model.predict(webcam.canvas);
+                // predict can take in an image, video or canvas html element
+                if(prediction[0].probability.toFixed(2) == '1.00'){
+                    
+                    if(status=="마스크 씀"||status=="코턱스크"){          
+                        audio=new Audio('Audio1.mp3');
+                        audio.play();
+                    }
+                    status="마스크 안씀"
+                }else if(prediction[1].probability.toFixed(2) == '1.00'){
+                    
+                    if(status=="마스크 안씀"||status=="코턱스크"){  
+                    audio=new Audio('Audio2.m4a');
+                    audio.play();}
+                    status="마스크 씀"
+                }else if(prediction[2].probability.toFixed(2) == '1.00'){
+                    
+                    if(status=="마스크 씀"||status=="마스크 안씀"){  
+                    var audio=new Audio('Audio3.m4a');
+                    audio.play();}
+                    status="코턱스크"
+                }
+            
+                for (let i = 0; i < maxPredictions; i++) {
+                    if(prediction[i].probability.toFixed(2) == '1.00'){
+                            const item=data[prediction[i].className] 
+                            labelContainer.innerHTML=`${item.message}`
+                    }
+
+
+                    // const classPrediction =
+                    //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                    // labelContainer.childNodes[i].innerHTML = classPrediction;
+                }
+            }
+            
+        </script>
+        
+        
+    </body>
+</html>
